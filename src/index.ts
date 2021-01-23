@@ -15,6 +15,8 @@ export enum Event {
 
 export interface IPollinator {
   start: () => void
+  stop: () => void
+  pause: () => void
   status: Status
 }
 
