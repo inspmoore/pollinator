@@ -12,7 +12,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "eslint": "^7.15.0",
-    "husky": "^4.3.8",
+    "husky": "^5.0.6",
     "jest": "^26.6.3",
     "pinst": "^2.1.2",
     "prettier": "^2.2.1",
@@ -25,7 +25,8 @@
     "lint": "./node_modules/.bin/eslint . --ext .ts,.js --quiet",
     "postinstall": "husky install",
     "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "postpublish": "pinst --enable",
+    "precommit:hook": "npm run lint && npm run test --silent"
   },
   "repository": {
     "type": "git",
