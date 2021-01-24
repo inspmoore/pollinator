@@ -22,7 +22,7 @@ export interface IPollinator {
 
 export type PollinatorConfig = {
   pollFnParams?: unknown
-  conditionFn?: (currentResponse: any, previousResponse: any) => boolean
+  conditionFn?: (currentResponse: unknown, previousResponse: unknown) => boolean
   delay?: number
   failRetryCount?: number
 }
@@ -68,7 +68,7 @@ class Pollinator extends EventEmitter implements IPollinator {
     this._setStatus = this._setStatus.bind(this)
   }
 
-  get status() {
+  get status(): Status {
     return this._status
   }
 

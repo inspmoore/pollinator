@@ -1,4 +1,5 @@
-import Pollinator, { Event, IPollinator, PollinatorConfig, Status } from '../'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Pollinator, { Event, Status } from '../'
 
 describe('Pollinator', () => {
   let instance: Pollinator | null
@@ -22,7 +23,7 @@ describe('Pollinator', () => {
   it('is expected to have a status getter', () => {
     const mockPollFn = jest.fn()
     instance = new Pollinator(mockPollFn)
-    let spy = jest.spyOn(instance, 'status', 'get')
+    const spy = jest.spyOn(instance, 'status', 'get')
     instance.status
     expect(spy).toHaveBeenCalledTimes(1)
     spy.mockRestore()
