@@ -1,4 +1,4 @@
-# Logs
+g Logs
 logs
 *.log
 npm-debug.log*
@@ -102,6 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# mac shit
+.DS_Store
 
 #project build
 umd/
