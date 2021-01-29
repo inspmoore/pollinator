@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "umd",
+    "target": "ESNext",
+    "module": "ESNext",
     "declaration": true,
-    "outDir": "./umd",
+    "declarationDir": "./types",
+    "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]

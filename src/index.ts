@@ -1,5 +1,3 @@
-import { EventEmitter } from 'fbemitter'
-
 export enum Status {
   IDLE,
   POLLING,
@@ -17,6 +15,8 @@ export interface IPollinator {
   start: () => void
   stop: () => void
   pause: () => void
+  on: (event: Event, listener: () => unknown) => void
+  off: (event: Event, listener: () => unknown) => void
   status: Status
 }
 
@@ -27,19 +27,19 @@ export type PollinatorConfig = {
   failRetryCount?: number
 }
 
-class Pollinator extends EventEmitter implements IPollinator {
+class Pollinator implements IPollinator {
   private pollFn
   private _status: Status
   private _config: PollinatorConfig
   private _timer: number | undefined
   private previousResponse: unknown | undefined
   private _retries: number
+  private _events: Record<string, Array<(data?: unknown) => unknown>>
 
   constructor(
     pollFn: (...params: unknown[]) => unknown,
     config?: PollinatorConfig
   ) {
-    super()
     const defaultConfig = {
       pollFnParams: undefined,
       conditionFn: () => false,
@@ -59,6 +59,7 @@ class Pollinator extends EventEmitter implements IPollinator {
     this._status = Status.IDLE
     this.previousResponse = undefined
     this._retries = 0
+    this._events = {}
 
     // bindings
     this._poller = this._poller.bind(this)
@@ -66,10 +67,30 @@ class Pollinator extends EventEmitter implements IPollinator {
     this.stop = this.stop.bind(this)
     this.pause = this.pause.bind(this)
     this._setStatus = this._setStatus.bind(this)
+    this.emit = this.emit.bind(this)
   }
 
   get status(): Status {
     return this._status
+  }
+
+  private emit(event: Event, ...data: unknown[]): void {
+    // emit
+    if (!event || !this._events[event]) return
+
+    this._events[event].forEach((f) => f(...data))
+  }
+
+  on(event: Event, listener: () => unknown): void {
+    if (!event || !listener) return
+    if (!this._events[event]) this._events[event] = []
+    this._events[event].push(listener)
+  }
+
+  off(event: Event, listener: () => unknown): void {
+    if (!event || !listener || !this._events[event]) return
+
+    this._events[event].filter((l) => l !== listener)
   }
 
   private _setStatus(val: Status) {

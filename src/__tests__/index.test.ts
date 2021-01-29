@@ -303,7 +303,7 @@ describe('Pollinator', () => {
     const eventListener = jest.fn()
     instance = new Pollinator(mockPollFn)
 
-    instance.addListener(Event.STATUS_CHANGE, eventListener)
+    instance.on(Event.STATUS_CHANGE, eventListener)
 
     await instance.start()
     expect(eventListener).nthCalledWith(1, Status.POLLING)
@@ -329,7 +329,7 @@ describe('Pollinator', () => {
     const eventListener = jest.fn()
 
     instance = new Pollinator(mockPollFn)
-    instance.addListener(Event.POLL, eventListener)
+    instance.on(Event.POLL, eventListener)
 
     await instance.start()
     await Promise.resolve()
@@ -365,7 +365,7 @@ describe('Pollinator', () => {
     const eventListener = jest.fn()
 
     instance = new Pollinator(mockPollFn)
-    instance.addListener(Event.END, eventListener)
+    instance.on(Event.END, eventListener)
 
     await instance.start()
 
@@ -391,7 +391,7 @@ describe('Pollinator', () => {
       expect(params).toEqual(expect.arrayContaining(['error', Status.FINISHED]))
     })
     instance = new Pollinator(mockPollFn, { failRetryCount: 0 })
-    instance.addListener(Event.ERROR, eventListener)
+    instance.on(Event.ERROR, eventListener)
 
     await instance.start()
     await jest.runOnlyPendingTimers()
@@ -408,7 +408,7 @@ describe('Pollinator', () => {
       expect(params).toEqual(expect.arrayContaining(['error', Status.FINISHED]))
     })
     instance = new Pollinator(mockPollFn, { failRetryCount: 2 })
-    instance.addListener(Event.ERROR, eventListener)
+    instance.on(Event.ERROR, eventListener)
     const spyPoller = jest.spyOn(instance as any, '_poller')
 
     await instance.start()
