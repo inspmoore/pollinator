@@ -1,5 +1,4 @@
 // run yarn build / npm run build before running this example
-// import Pollinator, { Event, Status } from '../dist/index'
 const { default: Pollinator, Status, Event } = require('../dist/index')
 
 const cannedResponse = [

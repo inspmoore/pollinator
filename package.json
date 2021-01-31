@@ -1,6 +1,6 @@
 {
   "name": "pollinator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A lightweight node/browser polling machine",
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.min.js",
@@ -33,7 +33,7 @@
     "lint": "./node_modules/.bin/eslint . --ext .ts,.js --quiet",
     "check-types": "tsc --noEmit",
     "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable && npm run clean && npm run check-types && npm run lint && npm run test",
+    "prepublishOnly": "pinst --disable && npm run clean && npm run check-types && npm run lint && npm run test && npm run build",
     "postpublish": "pinst --enable",
     "precommit:hook": "npm run lint && npm run test --silent"
   },
