@@ -1,10 +1,10 @@
-export enum Status {
+enum Status {
   IDLE,
   POLLING,
   FINISHED,
 }
 
-export enum Event {
+enum Event {
   POLL = 'poll',
   END = 'end',
   ERROR = 'error',
@@ -35,6 +35,8 @@ class Pollinator implements IPollinator {
   private previousResponse: unknown | undefined
   private _retries: number
   private _events: Record<string, Array<(data?: unknown) => unknown>>
+  static readonly Event = Event
+  static readonly Status = Status
 
   constructor(
     pollFn: (...params: unknown[]) => unknown,

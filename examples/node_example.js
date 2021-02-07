@@ -1,5 +1,6 @@
+const Pollinator = require('../dist/index')
+const { Status, Event } = Pollinator
 // run yarn build / npm run build before running this example
-const { default: Pollinator, Status, Event } = require('../dist/index')
 
 const cannedResponse = [
   'just started',

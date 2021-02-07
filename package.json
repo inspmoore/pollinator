@@ -1,6 +1,6 @@
 {
   "name": "pollinator",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A lightweight node/browser polling machine",
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.min.js",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/jest",
-    "build": "./node_modules/.bin/rollup -c",
+    "build": "npm run clean && ./node_modules/.bin/rollup -c",
     "clean": "rm -rf dist",
     "lint": "./node_modules/.bin/eslint . --ext .ts,.js --quiet",
     "check-types": "tsc --noEmit",

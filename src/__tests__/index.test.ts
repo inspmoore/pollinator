@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Pollinator, { Event, Status } from '../'
+import Pollinator from '../'
+const { Event, Status } = Pollinator
 
 describe('Pollinator', () => {
   let instance: Pollinator | null

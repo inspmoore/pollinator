@@ -1,5 +1,86 @@
 <html>
-  <body>
-    <h1>Pollinator</h1>
-  </body>
+<meta>
+<script src="https://unpkg.com/pollinator@0.3.0/dist/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script>
+  function fakeBitcoinAPI() {
+    return new Promise(res => {
+      setTimeout(res, 1000, parseInt(Math.random() * 100))
+    })
+  }
+
+  function log(message) {
+    const results = document.getElementById('results')
+    const newMessage = document.createElement("p")
+    const text = document.createTextNode(message)
+    newMessage.appendChild(text)
+    results.prepend(newMessage)
+  }
+</script>
+<style>
+  .logger {
+    background-color: lightgrey;
+    padding: 2px 8px;
+  }
+</style>
+</meta>
+
+<body>
+  <h1>Pollinator</h1>
+  <p>Let's poll a fake BTC exchange rate API</p>
+  <button id="pollBtn">Poll</button>
+  <canvas id="fakeChart" width="400" height="200"></canvas>
+
+  <div class="logger">
+    <h3>Logs</h3>
+    <code id="results">
+      </code>
+  </div>
+  <script>
+    const { default: Poll, Event, Status } = Pollinator
+    const ctx = document.getElementById('fakeChart').getContext('2d')
+    const fakeChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Exchange rate',
+          data: [],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(value) {
+      fakeChart.data.labels.push(new Date().toLocaleTimeString())
+      fakeChart.data.datasets.forEach(dataset => dataset.data.push(value))
+      fakeChart.update()
+    }
+
+    const pollBtn = document.getElementById('pollBtn')
+    pollBtn.addEventListener('click', startPollHandler)
+
+    const machine = new Poll(fakeBitcoinAPI, { delay: 1000 })
+    machine.on(Event.POLL, pollHandler)
+    function startPollHandler() {
+      machine.start()
+    }
+    function pollHandler(val) {
+      log(val)
+      updateChart(val)
+    }
+
+    log('start')
+  </script>
+</body>
+
 </html>

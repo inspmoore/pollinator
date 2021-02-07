@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "./dist",
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
