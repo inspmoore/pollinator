@@ -1,4 +1,4 @@
-![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/pollinator/0.3.0?style=flat-square)
+![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/pollinator/0.3.1?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/inspmoore/pollinator?style=flat-square)
 ![GitHub Repo stars](https://img.shields.io/github/stars/inspmoore/pollinator?style=flat-square)
 ![npm](https://img.shields.io/npm/v/pollinator?style=flat-square)
@@ -8,23 +8,23 @@
 
 ---
 
-Pollinator is a super lightweight library for lazy people to poll any function
+🐝 Pollinator is a super lightweight library for lazy people to poll any function
 (API gateway anyone?). Supports retries, pausing, cancelling, emits events you
 can subscribe to. It has a nice a natural API and Works in Node and browsers.
 
 ## Main features
 
-- simple API
-- start, pause and stop at any time
-- add event listeners to receive polling results and polling status changes
-- written in *TypeScript*
+- simple API 🔨
+- start, pause and stop at any time 🎮
+- add event listeners to receive polling results and polling status changes 🎭
+- written in *TypeScript* 👷‍♂️
 - cancel polling when certain conditions are met based on current or previous
-results
-- supports sync and async functions
-- configurable delay between polling
-- configurable retry attempts in case of error
-- well tested, no unnecessary calls
-- no bs - does only one thing and gets the job done
+results 🔚
+- supports sync and async functions 🎛
+- configurable delay between polling ⏲
+- configurable retry attempts in case of error 🔄
+- well tested, no unnecessary calls ⛰
+- no bs - does only one thing and gets the job done 👍🏻
 
 ## Installation
 
@@ -40,10 +40,10 @@ For the browsers add the CDN link:
 
 ```html
 <!-- either use unpkg.com -->
-<script src="https://unpkg.com/pollinator@0.3.0/dist/index.umd.min.js"></script>
+<script src="https://unpkg.com/pollinator@0.3.1/dist/index.umd.min.js"></script>
 
 <!-- or use JSDelivr -->
-<script src="https://cdn.jsdelivr.net/npm/pollinator@0.3.0/dist/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pollinator@0.3.1/dist/index.umd.min.js"></script>
 ```
 
 ## Usage
@@ -172,7 +172,7 @@ To build run:
 yarn build
 ```
 
-## Spread the love (pollen)
+## Spread the love (pollen 🌻)
 
 If you like this lib consider hitting that star ⭐️  button.
 
