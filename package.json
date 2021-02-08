@@ -1,12 +1,12 @@
 {
   "name": "pollinator",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A lightweight node/browser polling machine",
   "main": "dist/index.js",
   "unpkg": "dist/index.umd.min.js",
   "jsnext:main": "dist/index.module.js",
   "module": "dist/index.module.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.19",

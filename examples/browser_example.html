@@ -16,30 +16,9 @@
     newMessage.appendChild(text)
     results.prepend(newMessage)
   }
-</script>
-<style>
-  .logger {
-    background-color: lightgrey;
-    padding: 2px 8px;
-  }
-</style>
-</meta>
 
-<body>
-  <h1>Pollinator</h1>
-  <p>Let's poll a fake BTC exchange rate API</p>
-  <button id="pollBtn">Poll</button>
-  <canvas id="fakeChart" width="400" height="200"></canvas>
-
-  <div class="logger">
-    <h3>Logs</h3>
-    <code id="results">
-      </code>
-  </div>
-  <script>
-    const { default: Poll, Event, Status } = Pollinator
-    const ctx = document.getElementById('fakeChart').getContext('2d')
-    const fakeChart = new Chart(ctx, {
+  function generateChart(ctx) {
+    return new Chart(ctx, {
       type: 'line',
       data: {
         labels: [],
@@ -60,23 +39,76 @@
       }
     });
 
+  }
+</script>
+<style>
+  .logger {
+    background-color: lightgrey;
+    padding: 2px 8px;
+  }
+</style>
+</meta>
+
+<body>
+  <h1>Pollinator</h1>
+  <p>Let's poll a fake BTC exchange rate API</p>
+  <button id="pollBtn">Poll</button>
+  <button id="stopBtn">Stop</button>
+  <button id="pauseBtn">Pause</button>
+  <canvas id="fakeChart" width="400" height="200"></canvas>
+
+  <div class="logger">
+    <h3>Logs</h3>
+    <code id="results">
+      </code>
+  </div>
+  <script>
+    const { Status, Event } = Pollinator
+    // creating new Pollinator
+    const machine = new Pollinator(fakeBitcoinAPI, { delay: 1000 })
+
+    const ctx = document.getElementById('fakeChart').getContext('2d')
+    const pollBtn = document.getElementById('pollBtn')
+    const stopBtn = document.getElementById('stopBtn')
+    const pauseBtn = document.getElementById('pauseBtn')
+
+    pollBtn.addEventListener('click', startPollHandler)
+    stopBtn.addEventListener('click', machine.stop)
+    pauseBtn.addEventListener('click', machine.pause)
+
+    let fakeChart = generateChart(ctx)
+
     function updateChart(value) {
       fakeChart.data.labels.push(new Date().toLocaleTimeString())
       fakeChart.data.datasets.forEach(dataset => dataset.data.push(value))
       fakeChart.update()
     }
 
-    const pollBtn = document.getElementById('pollBtn')
-    pollBtn.addEventListener('click', startPollHandler)
-
-    const machine = new Poll(fakeBitcoinAPI, { delay: 1000 })
-    machine.on(Event.POLL, pollHandler)
     function startPollHandler() {
+      if (machine.status === Status.FINISHED) {
+        fakeChart.destroy()
+        fakeChart = generateChart(ctx)
+      }
       machine.start()
     }
+
+    // pollinator related code
+    // adding event listeners
+    machine.on(Event.POLL, pollHandler)
+    machine.on(Event.STATUS_CHANGE, statusChangeHandler)
+    machine.on(Event.END, endHandler)
+
     function pollHandler(val) {
       log(val)
       updateChart(val)
+    }
+
+    function statusChangeHandler(status) {
+      log('STATUS CHANGE: ' + Status[status])
+    }
+
+    function endHandler(response) {
+      log('END OF POLLING: ' + response)
     }
 
     log('start')
