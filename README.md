@@ -10,7 +10,7 @@
 
 🐝 Pollinator is a super lightweight library for lazy people to poll any function
 (API gateway anyone?). Supports retries, pausing, cancelling, emits events you
-can subscribe to. It has a nice a natural API and Works in Node and browsers.
+can subscribe to. It has a nice, natural API and works in Node and browsers.
 
 ## Main features
 
@@ -179,7 +179,7 @@ yarn build
 - timeout - configure max amount of time after which polling stops
 - total polling time in the event data
 
-## Spread the love (pollen 🌻)
+## Spread the pollen 🌻
 
 If you like this lib consider hitting that star ⭐️  button.
 
