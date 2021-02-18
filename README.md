@@ -172,10 +172,17 @@ To build run:
 yarn build
 ```
 
+## To do
+
+- max attempts - stop polling when a max number of attempts is achieved
+- current attempts number in the event data
+- timeout - configure max amount of time after which polling stops
+- total polling time in the event data
+
 ## Spread the love (pollen 🌻)
 
 If you like this lib consider hitting that star ⭐️  button.
 
-You can hit me up here 
+You can hit me up here
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/pirx__?label=Follow&style=social)
