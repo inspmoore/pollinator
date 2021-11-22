@@ -92,7 +92,7 @@ class Pollinator implements IPollinator {
   off(event: Event, listener: () => unknown): void {
     if (!event || !listener || !this._events[event]) return
 
-    this._events[event].filter((l) => l !== listener)
+    this._events[event] = this._events[event].filter((l) => l !== listener)
   }
 
   private _setStatus(val: Status) {
