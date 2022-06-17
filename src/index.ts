@@ -22,7 +22,10 @@ export interface IPollinator {
 
 export type PollinatorConfig = {
   pollFnParams?: unknown
-  conditionFn?: (currentResponse: unknown, previousResponse: unknown) => boolean
+  conditionFn?: (
+    currentResponse: unknown,
+    previousResponse: unknown
+  ) => boolean | Promise<boolean>
   delay?: number
   failRetryCount?: number
 }
