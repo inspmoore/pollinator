@@ -1,4 +1,4 @@
-![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/pollinator/0.3.1?style=flat-square)
+![npm bundle size (version)](https://img.shields.io/bundlephobia/minzip/pollinator/0.3.2?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/inspmoore/pollinator?style=flat-square)
 ![GitHub Repo stars](https://img.shields.io/github/stars/inspmoore/pollinator?style=flat-square)
 ![npm](https://img.shields.io/npm/v/pollinator?style=flat-square)
@@ -17,9 +17,9 @@ can subscribe to. It has a nice, natural API and works in Node and browsers.
 - simple API 🔨
 - start, pause and stop at any time 🎮
 - add event listeners to receive polling results and polling status changes 🎭
-- written in *TypeScript* 👷‍♂️
+- written in _TypeScript_ 👷‍♂️
 - cancel polling when certain conditions are met based on current or previous
-results 🔚
+  results 🔚
 - supports sync and async functions 🎛
 - configurable delay between polling ⏲
 - configurable retry attempts in case of error 🔄
@@ -40,10 +40,10 @@ For the browsers add the CDN link:
 
 ```html
 <!-- either use unpkg.com -->
-<script src="https://unpkg.com/pollinator@0.3.1/dist/index.umd.min.js"></script>
+<script src="https://unpkg.com/pollinator@0.3.2/dist/index.umd.min.js"></script>
 
 <!-- or use JSDelivr -->
-<script src="https://cdn.jsdelivr.net/npm/pollinator@0.3.1/dist/index.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pollinator@0.3.2/dist/index.umd.min.js"></script>
 ```
 
 ## Usage
@@ -82,12 +82,9 @@ Say you want to stop polling when a specific response comes back from the
 polling function.
 
 ```javascript
-const poller = new Pollinator(
-    pollingFunction,
-    {
-      conditionFn: stopPollingOnCondition
-    }
-  )
+const poller = new Pollinator(pollingFunction, {
+  conditionFn: stopPollingOnCondition,
+})
 
 function stopPollingOnCondition(currentResponse, previousResponse) {
   // return true if you wish to stop polling
@@ -103,27 +100,25 @@ function stopPollingOnCondition(currentResponse, previousResponse) {
 
 ### `Pollinator` constructor params
 
-|Name|Type|Required|Description|Default|
-|:----:|:----:|:------:|:------|:------|
-|**pollFn**|`function`|`required`|A function you want to poll. Can be sync or async. ||
-|**config**|`PollinatorConfig`|`optional`|Optional configuration. Check details below|see `PollinatorConfig` type below|
+|    Name    |        Type        |  Required  | Description                                        | Default                           |
+| :--------: | :----------------: | :--------: | :------------------------------------------------- | :-------------------------------- |
+| **pollFn** |     `function`     | `required` | A function you want to poll. Can be sync or async. |                                   |
+| **config** | `PollinatorConfig` | `optional` | Optional configuration. Check details below        | see `PollinatorConfig` type below |
 
 ### `PollinatorConfig` type
 
-|Name|Type|Required|Description|Default|
-|:----:|:----:|:------:|:------|:----------|
-|**polFnParams**|`unknown`|`optional`|Use this option to pass some parameters to the `pollFn`|`undefined`|
-|**conditionFn**|`function`|`optional`|Use this function to stop polling. The function will be called with two parameters of current and previous response from the `pollFn`. Must return a `boolean` where `true` stops polling.<br>`(current: unkown, previous: unkown) => bool`|`() => false`|
-|**delay**|`number`|`optional`|A value in milliseconds setting the timeout between consequent `pollFn` calls|`5000`|
-|**failRetryCount**|`number`|`optional`|A value that indicates the number of attempts to call `pollFn` after catching an error. Zero means that polling will fail immediately after catching error. Any positive number means that Pollinator will try to poll that many times until it emits the `Event.ERROR`.|`3`|
+|        Name        |    Type    |  Required  | Description                                                                                                                                                                                                                                                              | Default       |
+| :----------------: | :--------: | :--------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------ |
+|  **polFnParams**   | `unknown`  | `optional` | Use this option to pass some parameters to the `pollFn`                                                                                                                                                                                                                  | `undefined`   |
+|  **conditionFn**   | `function` | `optional` | Use this function to stop polling. The function will be called with two parameters of current and previous response from the `pollFn`. Must return a `boolean` where `true` stops polling.<br>`(current: unkown, previous: unkown) => bool`                              | `() => false` |
+|     **delay**      |  `number`  | `optional` | A value in milliseconds setting the timeout between consequent `pollFn` calls                                                                                                                                                                                            | `5000`        |
+| **failRetryCount** |  `number`  | `optional` | A value that indicates the number of attempts to call `pollFn` after catching an error. Zero means that polling will fail immediately after catching error. Any positive number means that Pollinator will try to poll that many times until it emits the `Event.ERROR`. | `3`           |
 
 ### `Status` enum
 
 ```javascript
 {
-  IDLE,
-  POLLING,
-  FINISHED
+  IDLE, POLLING, FINISHED
 }
 ```
 
@@ -140,14 +135,14 @@ enum Event {
 
 ### `Pollinator` instance methods and properties
 
-|Name|Type|Params|Description|
-|:----:|:----:|:------:|:------|
-|**start**|`method`||Starts polling and changes `status` to `Status.POLLING`|
-|**stop**|`method`||Stops polling and changes `status` to `Status.FINISHED`|
-|**pause**|`method`||Pauses polling and `status` changes to `Status.IDLE`|
-|**on**|`method`|`(event: Event, listener: function) => void`|Registers an event listener for a given `Event` type.|
-|**off**|`method`|`(event: Event, listener: function) => void`|Removes an event listener for a given `Event` type.|
-|**status**|`property`||Get current status of your poller. Value is of type `Status`|
+|    Name    |    Type    |                    Params                    | Description                                                  |
+| :--------: | :--------: | :------------------------------------------: | :----------------------------------------------------------- |
+| **start**  |  `method`  |                                              | Starts polling and changes `status` to `Status.POLLING`      |
+|  **stop**  |  `method`  |                                              | Stops polling and changes `status` to `Status.FINISHED`      |
+| **pause**  |  `method`  |                                              | Pauses polling and `status` changes to `Status.IDLE`         |
+|   **on**   |  `method`  | `(event: Event, listener: function) => void` | Registers an event listener for a given `Event` type.        |
+|  **off**   |  `method`  | `(event: Event, listener: function) => void` | Removes an event listener for a given `Event` type.          |
+| **status** | `property` |                                              | Get current status of your poller. Value is of type `Status` |
 
 ## Building and contributing
 
@@ -160,6 +155,7 @@ yarn
 #or
 npm i
 ```
+
 To run tests use this script:
 
 ```shell
@@ -181,7 +177,7 @@ yarn build
 
 ## Spread the pollen 🌻
 
-If you like this lib consider hitting that star ⭐️  button.
+If you like this lib consider hitting that star ⭐️ button.
 
 You can hit me up here
 
