@@ -142,7 +142,7 @@ class Pollinator implements IPollinator {
         this._timer = setTimeout(this._poller, this._config.delay)
         return
       }
-      this._setStatus(Status.FINISHED)
+      this?._setStatus?.(Status.FINISHED)
       this.emit(Event.ERROR, error, this._status)
     }
   }
@@ -150,21 +150,21 @@ class Pollinator implements IPollinator {
   start(): void {
     if (this._status === Status.POLLING) return
     this._retries = 0
-    this._setStatus(Status.POLLING)
-    this._poller()
+    this?._setStatus?.(Status.POLLING)
+    this?._poller?.()
   }
 
   stop(): void {
     if (this._status === Status.FINISHED) return
     // console.log('stop')
-    this._setStatus(Status.FINISHED)
+    this?._setStatus?.(Status.FINISHED)
     this._timer && clearTimeout(this._timer)
     this._timer = undefined
-    this.emit(Event.END, this.previousResponse, this._status)
+    this?.emit?.(Event.END, this.previousResponse, this._status)
   }
 
   pause(): void {
-    this._setStatus(Status.IDLE)
+    this?._setStatus?.(Status.IDLE)
     this._timer && clearTimeout(this._timer)
   }
 }
