@@ -1,10 +1,10 @@
-enum Status {
+export enum Status {
   IDLE,
   POLLING,
   FINISHED,
 }
 
-enum Event {
+export enum Event {
   POLL = 'poll',
   END = 'end',
   ERROR = 'error',
@@ -34,7 +34,7 @@ class Pollinator implements IPollinator {
   private pollFn
   private _status: Status
   private _config: PollinatorConfig
-  private _timer: number | undefined
+  private _timer: NodeJS.Timeout | number | undefined
   private previousResponse: unknown | undefined
   private _retries: number
   private _events: Record<string, Array<(data?: unknown) => unknown>>
